@@ -6,10 +6,22 @@ let pool: Pool | null = null;
 
 async function getDb(): Promise<Pool> {
   if (!pool) {
-    pool = new Pool({
-      connectionString: process.env.POSTGRES_URL || process.env.DATABASE_URL,
-      ssl: { rejectUnauthorized: false },
-    });
+    // Use individual Supabase variables if available, otherwise fall back to connection string
+    if (process.env.POSTGRES_HOST && process.env.POSTGRES_USER && process.env.POSTGRES_PASSWORD && process.env.POSTGRES_DATABASE) {
+      pool = new Pool({
+        host: process.env.POSTGRES_HOST,
+        user: process.env.POSTGRES_USER,
+        password: process.env.POSTGRES_PASSWORD,
+        database: process.env.POSTGRES_DATABASE,
+        port: 5432,
+        ssl: { rejectUnauthorized: false },
+      });
+    } else {
+      pool = new Pool({
+        connectionString: process.env.POSTGRES_URL || process.env.DATABASE_URL,
+        ssl: { rejectUnauthorized: false },
+      });
+    }
 
     // Create tables if they don't exist
     await pool.query(`
