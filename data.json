@@ -1,0 +1,30 @@
+{
+  "users": [
+    {
+      "id": "6a6c2d7c-9ce2-445c-8411-efff85ace422",
+      "pin": "1234",
+      "preferredCurrency": "USD",
+      "createdAt": "2026-02-05T16:26:50.814Z"
+    }
+  ],
+  "trackers": [
+    {
+      "id": "38286ded-4d24-40d3-a196-3602e43d8a93",
+      "userId": "6a6c2d7c-9ce2-445c-8411-efff85ace422",
+      "name": "Monthly Budget",
+      "currency": "INR",
+      "createdAt": "2026-02-05T16:27:18.233Z"
+    }
+  ],
+  "expenses": [
+    {
+      "id": "7f94569e-d2fc-4f30-8f07-80d25e7f9990",
+      "trackerId": "38286ded-4d24-40d3-a196-3602e43d8a93",
+      "amount": 500,
+      "category": "Food",
+      "description": "Lunch at restaurant",
+      "date": "2026-02-05",
+      "createdAt": "2026-02-05T16:27:50.056Z"
+    }
+  ]
+}
