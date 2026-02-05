@@ -5,8 +5,8 @@ let pool: Pool | null = null;
 export async function getDb(): Promise<Pool> {
   if (!pool) {
     pool = new Pool({
-      connectionString: process.env.DATABASE_URL || process.env.POSTGRES_URL,
-      ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+      connectionString: process.env.POSTGRES_URL || process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false },
     });
 
     // Create tables if they don't exist

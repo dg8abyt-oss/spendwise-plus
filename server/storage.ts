@@ -7,7 +7,8 @@ let pool: Pool | null = null;
 async function getDb(): Promise<Pool> {
   if (!pool) {
     pool = new Pool({
-      connectionString: process.env.DATABASE_URL,
+      connectionString: process.env.POSTGRES_URL || process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false },
     });
 
     // Create tables if they don't exist
