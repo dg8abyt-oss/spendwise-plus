@@ -9,12 +9,12 @@ A beautiful spending tracker application with pie chart visualization, multiple 
 - **Currency Support**: Toggle between Indian Rupees (₹) and US Dollars ($)
 - **Pie Chart Visualization**: Beautiful breakdown of spending by category
 - **Custom Categories**: Users type their own expense categories
-- **JSON Storage**: All data persisted in a local JSON file
+- **Database Storage**: All data persisted in PostgreSQL
 
 ## Tech Stack
 - **Frontend**: React + TypeScript with Vite
-- **Backend**: Express.js
-- **Storage**: JSON file (data.json)
+- **Backend**: Express.js (development) / Vercel Serverless (production)
+- **Storage**: PostgreSQL database
 - **Styling**: Tailwind CSS + shadcn/ui components
 - **Charts**: Recharts for pie chart visualization
 
@@ -31,8 +31,19 @@ client/src/
 │   ├── auth.tsx            # Login/Register page
 │   └── dashboard.tsx       # Main dashboard with pie chart
 server/
-├── routes.ts               # API endpoints
-└── storage.ts              # JSON file storage implementation
+├── routes.ts               # API endpoints (Express)
+└── storage.ts              # PostgreSQL storage implementation
+api/                        # Vercel serverless functions
+├── _db.ts                  # Database connection
+├── auth/
+│   ├── login.ts
+│   └── register.ts
+├── trackers/
+│   ├── index.ts
+│   └── [id].ts
+└── expenses/
+    ├── index.ts
+    └── [id].ts
 shared/
 └── schema.ts               # TypeScript types and Zod schemas
 ```
@@ -55,3 +66,32 @@ shared/
 ## Theme
 - Primary color: Purple/Indigo (hsl 250)
 - Modern, clean design with dark mode support
+
+## Vercel Deployment
+
+### Prerequisites
+1. A PostgreSQL database (Vercel Postgres, Supabase, Neon, etc.)
+2. Vercel account
+
+### Deployment Steps
+1. Push this code to a GitHub repository
+2. Import the project in Vercel
+3. Add the following environment variable:
+   - `DATABASE_URL` or `POSTGRES_URL` - Your PostgreSQL connection string
+4. Deploy!
+
+### Database Setup
+The app automatically creates the required tables on first connection:
+- `users` - Stores user PINs and preferences
+- `trackers` - Stores spending trackers
+- `expenses` - Stores individual expenses
+
+### Build Command
+```bash
+npm run build
+```
+
+### Output Directory
+```
+dist/public
+```
